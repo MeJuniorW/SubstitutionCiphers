@@ -57,6 +57,7 @@ namespace SubstitutionCiphers
             for (int i = 0; i < encryptionValues.Length; i++)
             {
                 _ = Int32.TryParse(encryptionValues[i], out int key);
+                key = ((key > 26) || (key < 0)) ? 0 : key;
                 if (encryptionChart.TryGetValue(key, out char value))
                 {
                     decryptedText += value;
