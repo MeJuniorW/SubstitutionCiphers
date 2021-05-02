@@ -14,26 +14,31 @@ namespace SubstitutionCiphers
             char[] alphabet = Enumerable.Range('A', 26).Select(x => (char)x).ToArray();
             return alphabet;
         }
-        public static string EncryptAlphaToFroNumeric(string text)
+        public static string EncryptAlphaToFroNumeric(string unencryptedText)
         {
             char[] charsToIgnore = { ',', ' ', '/', ':', ';', '-', '.' };
             char[] alphabet = GetAlphabet();
-            string[] unencrypted = text.Split(charsToIgnore);
-            text = unencrypted.ToString();
-            string[] encrypted = new string[text.Length];
-            string encryptedText = string.Empty;
-            for (int i = 0; i < text.Length; i++)
+            string[] encrypted = new string[unencryptedText.Length];
+            for (int i = 0; i < unencryptedText.Length; i++)
             {
-                string numericValue = (Array.IndexOf(alphabet, text[i]) + 1).ToString();
-                encrypted[i] = numericValue;
+                if (!charsToIgnore.Contains(unencryptedText[i]))
+                {
+                    string numericValue = (Array.IndexOf(alphabet, unencryptedText[i]) + 1).ToString();
+                    encrypted[i] = numericValue;
+                }
+                else
+                {
+                    encrypted[i] = "0";
+                }
             }
-            encryptedText = string.Join('-', encrypted);
+            string encryptedText = string.Join('-', encrypted);
             return encryptedText;
         }
 
-        public static string DecryptAlphaToFroNumeric(string text)
+        public static string DecryptAlphaToFroNumeric(string encryptedText)
         {
-            throw new NotImplementedException();
+
+            return "";
         }
 
     }
