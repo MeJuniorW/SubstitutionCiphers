@@ -10,12 +10,53 @@ namespace SubstitutionCiphers
         }
         public static void Choice()
         {
-            // Console.WriteLine("Do you wish to encrypt or decrypt ( e / d )\nChoice : ");
-            // string choice = Console.ReadLine().ToLower();
-            // Console.WriteLine("Enter Text: ");
+            string choice = string.Empty;
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Do you wish to encrypt or decrypt ( e / d )\nChoice : ");
+                    choice = Console.ReadLine().ToLower();
+                    if ((choice == "e") || (choice == "encrypt"))
+                    {
+                        choice = "e";
+                    }
+                    else if ((choice == "d") || (choice == "decrypt"))
+                    {
+                        choice = "d";
+                    }
+                    else
+                    {
+                        throw new Exception(message: $"{choice} is not a valid choice.");
+                    }
+                        break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Try again");
+                }
+            }
+
+            Console.WriteLine("Enter Text: ");
             string text = Console.ReadLine().ToUpper();
-            string encryptedText = AlphaToFroNumeric.EncryptAlphaToFroNumeric(text);
-            Console.WriteLine(encryptedText);
+
+            switch (choice)
+            {
+                case "e":
+                    string encrypted = AlphaToFroNumeric.EncryptAlphaToFroNumeric(text);
+                    Console.WriteLine(encrypted);
+                    break;
+
+                case "d":
+                    string decrypted = AlphaToFroNumeric.DecryptAlphaToFroNumeric(text);
+                    Console.WriteLine(decrypted);
+                    break;
+
+                default:
+                    Console.WriteLine("Exiting");
+                    break;
+            }
         }
     }
 }
